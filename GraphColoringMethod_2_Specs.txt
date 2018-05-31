@@ -1,0 +1,96 @@
+Project 9.2:  Graph coloring problem:  given a undirected graph, G = <N, E>,  
+	the graph coloring problem is to find the minumum number of colors to color all nodes in N, 
+	such that two adjacent nodes, ni, nj, can not be colored with the same color.  
+
+	Since this problem is a known N-P problem, 
+	we are going to use the *second* strategy, method-2 taught in class  to solve this problem.
+
+**************************************
+Language:  C++ 
+Due date:  C++ soft copy: 12/10/2017 Sunday before Midnight
+    (+1 for early submission, 12/7/2017)
+Due date:  C++ hard copy: 12/12/2017 Tuesday in class
+
+*******************************
+I.  Input [argv[0]: an undirected graph, represented by a list of edges, <ni, nj>, 
+   (a bidirectional edge from ni to nj and from nj to ni thw cost is c.)  
+/**The name of the input file should be given in argv[0].
+
+The first text line is the number of nodes, N, in G, follows by a list of bidirectional edges, <ni, nj>
+	For example:
+		5	// there are 5 nodes in the graph 
+		1  5  // an edge <1, 5> and <5, 1>
+    		2  3  // an edge <2, 3> and <3, 2>
+     		1  2  // an edge <1, 2> and <2, 1>
+		3  5  // an edge <3, 5> and < 5, 3>
+		:
+		:
+ 	
+II. Output(argv[1]):
+           - Print input pairs
+		- Print the adjacencyMatrix as the algorithm calls for.
+		- Pring the number of colors used to color. 
+
+*******************************
+III. Data structure:
+*******************************
+ - A node class
+   	- colorID (int)
+   	- next (node pointer)
+  	
+ - A graphColoring class
+ 	 - adjacencyMatrix: a n by n adjacent matrix for the graph.
+			 // initiallized to 0
+     	 - usedColorTop (node pointer) // This is a linked list Stack, initiallized to null 
+
+       - newColor (int) // 1, 2, 3, ... (Red, Green, Blue, Yallow, Purple, Orange, Black, ...)
+    - numNode (int)
+   
+
+    methods:
+	- constructor
+	- loadMatrix // read from input and fill the adjacentcy Matrix
+	- checkAdjacent (color) // it return 0 if there is no adjacent nodes use the color
+	- pushUsedColor (newColor) // push the newColor on top of the linked list stack.
+     - findUsedColor (currentNode) // algorithm is on your own!!!
+					// this method looks thru used color in the linked list stack,
+					// it returns the first found used color that can be used to color
+				     // currentNode, else it turns 0 if none of the used colors
+				     // can be used to color currentNode
+					// this method calls checkAdjacent method for each used color in the used
+					// color set.
+ 
+*******************************
+III. Algorithm steps
+*******************************
+
+step 0: 
+	   - numNode <-- get from input file
+	  - dynamically allocate adjacencyMatrix // initiallize to 0
+	  - initiallized all members
+	  - load adjacencyMatrix from the input pairs
+ 	  
+	  - newColor <-- 0
+       - currentNode <-- 0
+ 
+step 1: - currentNode ++  // the next uncolored node
+        - print adjacencyMatrix
+
+step 2: usedColor <-- findUsedColor (currentNode) 
+        if useColor > 0
+  		- adjacentMatrix[currentNode][currentNode] <-- usedColor
+	   else
+           - newColor ++
+		 - adjacentMatrix[currentNode][currentNode] <-- newColor
+		 - pushUsedColor (newColor)
+
+Step 3: repeat steps 1 to 2 until all nodes are colored.
+
+Step 4: print newcolor  // with indication, i.e., number of colors used is ...
+
+        print adjacencyMatrix 
+   
+
+Step 5: close all files
+	
+	
